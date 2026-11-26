@@ -1,7 +1,7 @@
 import { horseNames } from '@/constants/horseNames'
-import { HORSE_COUNT } from '@/constants/race'
+import { HORSE_COUNT, MAX_CONDITION, MIN_CONDITION } from '@/constants/race'
 import type { Horse } from '@/types/race'
-import { generateDistinctColors, randomHorseCondition } from '@/utils/random'
+import { generateDistinctColors, randomInt } from '@/utils/random'
 
 export const generateHorses = (count: number = HORSE_COUNT): Horse[] => {
   if (count > horseNames.length) {
@@ -18,7 +18,7 @@ export const generateHorses = (count: number = HORSE_COUNT): Horse[] => {
       id: index + 1,
       name,
       color,
-      condition: randomHorseCondition(),
+      condition: randomInt(MIN_CONDITION, MAX_CONDITION),
     }
   })
 }

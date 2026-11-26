@@ -6,12 +6,8 @@ interface DistinctColorOptions {
   startHue?: number
 }
 
-export const randomHorseCondition = (): number => {
-  return Math.floor(Math.random() * 100) + 1 // Random condition between 1 and 100
-}
-
-export const randomHorseConditionMaxMin = (min: number, max: number): number => {
-  return Math.floor(Math.random() * (max - min + 1)) + min // Random condition between min and max
+export const randomInt = (min: number, max: number): number => {
+  return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
 export const generateDistinctColors = (

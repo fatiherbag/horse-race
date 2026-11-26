@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { generateHorses } from '../raceEngine'
 import { horseNames } from '@/constants/horseNames'
-import { HORSE_COUNT } from '@/constants/race'
+import { HORSE_COUNT, MAX_CONDITION, MIN_CONDITION } from '@/constants/race'
 
 const HSL_REGEX = /^hsl\((\d+),\s*(\d+)%,\s*(\d+)%\)$/
 
@@ -13,9 +13,9 @@ describe('generateHorses', () => {
     horses.forEach((horse, index) => {
       expect(horse.id).toBe(index + 1)
       expect(horse.name).toBe(horseNames[index])
-      expect(horse.color).toMatch(HSL_REGEX) // Check if color is a valid hex code
-      expect(horse.condition).toBeGreaterThanOrEqual(0)
-      expect(horse.condition).toBeLessThanOrEqual(100)
+      expect(horse.color).toMatch(HSL_REGEX)
+      expect(horse.condition).toBeGreaterThanOrEqual(MIN_CONDITION)
+      expect(horse.condition).toBeLessThanOrEqual(MAX_CONDITION)
     })
   })
 

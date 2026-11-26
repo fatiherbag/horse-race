@@ -1,15 +1,33 @@
 import { describe, expect, it } from 'vitest'
-import { generateDistinctColors, randomHorseCondition } from '../random'
+import { generateDistinctColors, randomInt } from '../random'
 import { HORSE_COUNT } from '@/constants/race'
 
-describe('randomHorseCondition', () => {
+describe('randomInt', () => {
   it('should return a number between 1 and 100', () => {
     const min = 1
     const max = 100
 
-    const condition = randomHorseCondition()
+    const condition = randomInt(min, max)
     expect(condition).toBeGreaterThanOrEqual(min)
     expect(condition).toBeLessThanOrEqual(max)
+  })
+
+  it('should return same number when min max is same', () => {
+    const min = 5
+    const max = 5
+    const result = randomInt(min, max)
+    expect(result).toBe(min)
+  })
+
+  it('should return an integer between min and max in 1000 iterations', () => {
+    const min = 1
+    const max = 10
+    for (let i = 0; i < 1000; i++) {
+      const result = randomInt(min, max)
+      expect(result).toBeGreaterThanOrEqual(min)
+      expect(result).toBeLessThanOrEqual(max)
+      expect(Number.isInteger(result)).toBe(true)
+    }
   })
 })
 
