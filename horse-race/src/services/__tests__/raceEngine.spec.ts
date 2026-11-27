@@ -1,7 +1,13 @@
 import { describe, expect, it } from 'vitest'
-import { generateHorses } from '../raceEngine'
+import { generateHorses, generateSchedule } from '../raceEngine'
 import { horseNames } from '@/constants/horseNames'
-import { HORSE_COUNT, MAX_CONDITION, MIN_CONDITION } from '@/constants/race'
+import {
+  HORSE_COUNT,
+  HORSES_PER_ROUND,
+  MAX_CONDITION,
+  MIN_CONDITION,
+  ROUND_DISTANCES,
+} from '@/constants/race'
 
 const HSL_REGEX = /^hsl\((\d+),\s*(\d+)%,\s*(\d+)%\)$/
 
@@ -40,5 +46,22 @@ describe('generateHorses', () => {
 
   it('returns exactly the requested number of horses', () => {
     expect(generateHorses(5)).toHaveLength(5)
+  })
+})
+
+describe('generateSchedule', () => {
+  const horses = generateHorses()
+  const schedule = generateSchedule(horses)
+
+  it('should generate one round per distance, in order', () => {
+    expect(schedule.map((round) => round.distance)).toEqual([...ROUND_DISTANCES])
+  })
+
+  it('puts HORSES_PER_ROUND unique, existing horses in each round', () => {
+    const validIDs = new Set(horses.map((horse) => horse.id))
+    schedule.forEach((round) => {
+      expect(round.horseIds).toHaveLength(HORSES_PER_ROUND)
+      expect(round.horseIds.every((id) => validIDs.has(id))).toBe(true)
+    })
   })
 })

@@ -27,3 +27,14 @@ export const generateDistinctColors = (
 
   return colors
 }
+
+//Fisher-Yates shuffle algorithm
+export const shuffleArray = <T>(items: readonly T[]): T[] => {
+  const array = [...items]
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = randomInt(0, i)
+    //swap elements at indices i and j without using a temporary variable
+    ;[array[i], array[j]] = [array[j]!, array[i]!]
+  }
+  return array
+}
